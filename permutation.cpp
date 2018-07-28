@@ -1,30 +1,36 @@
+/*#include<iostream>
+#include<set>
+#include<string>*/
 #include<bits/stdc++.h>
 using namespace std;
 
-void swap(char *x,char *y){
-	char temp;
-	temp=*x;
-	*x=*y;
-	*y=temp;
-}
+set<string> s;
 
-
-void permute(char *a,int l,int r){
-	if (l==r){
-		cout<<a<<"\n";
+void printpermutation(char *a,int i){
+	if(a[i]=='\0'){
+		string temp = a;
+		s.insert(temp);
 		return;
 	}
-	int i;
-	for(i=l;i<=r;++i){
-		swap((a+l),(a+i));
-		permute(a,l+1,r);
-		swap((a+l),(a+i));
+	for(int j=i;a[j]!='\0';j++){
+		swap(a[i],a[j]);
+		printpermutation(a,i+1);
+		//Restore the previous array
+		swap(a[i],a[j]);
 	}
 }
+
 
 
 int main(){
-	char a[]="ABC";
-	int n = strlen(a);
-	permute(a,0,n-1);
+	char a[100];
+	cin>>a;
+	printpermutation(a,0);
+	//Iterate over set and print
+	for(set<string> :: iterator ptr=s.begin() ; ptr!=s.end() ; ptr++){
+		cout<<(*ptr)<<"\n";
+	}
+	/*for(string p : s){
+		cout<<p<<"\n";
+		}*/
 }
